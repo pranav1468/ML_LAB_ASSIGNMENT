@@ -1,0 +1,18 @@
+Metadata-Version: 2.4
+Name: ML_LAB1
+Version: 0.0.0
+Summary: A small python package for ml app
+Home-page: https://github.com/navanish17/ML_LAB
+Author: navanish17
+Author-email: navnishpaXX7XXX@gmail.com
+Project-URL: Bug Tracker, https://github.com/navanish17/ML_LAB/issues
+Description-Content-Type: text/markdown
+Dynamic: author
+Dynamic: author-email
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: project-url
+Dynamic: summary
+
+hello
