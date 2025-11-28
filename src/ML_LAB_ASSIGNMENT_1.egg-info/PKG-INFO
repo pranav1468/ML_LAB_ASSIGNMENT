@@ -1,0 +1,18 @@
+Metadata-Version: 2.4
+Name: ML_LAB_ASSIGNMENT_1
+Version: 0.0.0
+Summary: A small python package for ml app
+Home-page: https://github.com/pranav1468/ML_LAB_ASSIGNMENT
+Author: pranav1468
+Author-email: pranavbaghare@gmail.com
+Project-URL: Bug Tracker, https://github.com/pranav1468/ML_LAB_ASSIGNMENT/issues
+Description-Content-Type: text/markdown
+Dynamic: author
+Dynamic: author-email
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: project-url
+Dynamic: summary
+
+hello

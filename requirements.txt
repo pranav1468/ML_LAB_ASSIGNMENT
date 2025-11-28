@@ -2,5 +2,8 @@ numpy
 pandas
 matplotlib
 scikit-learn
+seaborn
+imbalanced-learn
+joblib
 xgboost
 -e .

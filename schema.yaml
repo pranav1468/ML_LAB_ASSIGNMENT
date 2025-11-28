@@ -1,0 +1,23 @@
+COLUMNS:
+  Booking_ID: object
+  no_of_adults: int64
+  no_of_children: int64
+  no_of_weekend_nights: int64
+  no_of_week_nights: int64
+  type_of_meal_plan: object
+  required_car_parking_space: int64
+  room_type_reserved: object
+  lead_time: int64
+  arrival_year: int64
+  arrival_month: int64
+  arrival_date: int64
+  market_segment_type: object
+  repeated_guest: int64
+  no_of_previous_cancellations: int64
+  no_of_previous_bookings_not_canceled: int64
+  avg_price_per_room: float64
+  no_of_special_requests: int64
+  booking_status: object
+
+TARGET_COLUMN:
+  name: booking_status
