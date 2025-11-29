@@ -9,7 +9,7 @@ import pandas as pd
 from ML_LAB.pipeline.prediction import PredictionPipeline
 
 st.set_page_config(page_title="Hotel Booking Prediction", layout="wide")
-st.title("🏨 Hotel Booking Cancellation Predictor")
+st.title("🏨 Hotel Booking Cancellation Predictor - LIVE ")
 
 # Form for User Input
 with st.form("prediction_form"):
@@ -22,17 +22,27 @@ with st.form("prediction_form"):
         no_of_week_nights = st.number_input("Week Nights", min_value=0, value=2)
         
     with col2:
-        # Apne data ke hisab se options adjust kar lena
         type_of_meal_plan = st.selectbox("Meal Plan", ['Meal Plan 1', 'Meal Plan 2', 'Not Selected']) 
         required_car_parking_space = st.selectbox("Car Parking Required?", [0, 1])
         room_type_reserved = st.selectbox("Room Type", ['Room_Type 1', 'Room_Type 2', 'Room_Type 4'])
-        lead_time = st.number_input("Lead Time (Days before arrival)", min_value=0, value=10)
+        
+        # 🔹 Replaced number_input with slider for better UI
+        lead_time = st.slider("Lead Time (Days before arrival)", 0, 365, 10)
 
     with col3:
         market_segment_type = st.selectbox("Market Segment", ['Online', 'Offline', 'Corporate', 'Aviation'])
         avg_price_per_room = st.number_input("Avg Price per Room", min_value=0.0, value=100.0)
         no_of_special_requests = st.number_input("Special Requests", min_value=0, value=0)
         repeated_guest = st.selectbox("Is Repeated Guest?", [0, 1])
+
+    # 🔹 Dynamic Total Nights display inside the form
+    total_nights = no_of_weekend_nights + no_of_week_nights
+    st.info(f"📌 Total Stay Nights: **{total_nights}**")
+
+    # 🔹 Auto-calculation of average cost per person
+    total_guests = no_of_adults + no_of_children
+    avg_per_person = avg_price_per_room / max(total_guests, 1)
+    st.info(f"💰 Avg Price per Person: **₹{avg_per_person:.2f}**")
 
     submit_btn = st.form_submit_button("Predict Status")
 
@@ -47,9 +57,9 @@ if submit_btn:
         'required_car_parking_space': [required_car_parking_space],
         'room_type_reserved': [room_type_reserved],
         'lead_time': [lead_time],
-        'arrival_year': [2018], # Dummy values jo feature importance me kam hain
-        'arrival_month': [1],   
-        'arrival_date': [1],    
+        'arrival_year': [2018],  # Dummy values jo feature importance me kam hain
+        'arrival_month': [1],
+        'arrival_date': [1],
         'market_segment_type': [market_segment_type],
         'repeated_guest': [repeated_guest],
         'no_of_previous_cancellations': [0],
@@ -60,13 +70,15 @@ if submit_btn:
     
     try:
         pipeline = PredictionPipeline()
-        result = pipeline.predict(data)
+
+        # 🔹 Add prediction spinner for interactivity
+        with st.spinner("⏳ Predicting… Please wait"):
+            result = pipeline.predict(data)
         
-        # 1 means Canceled (Based on your mapping)
         if result[0] == 1:
             st.error("⚠️ Prediction: Booking will be CANCELED")
         else:
             st.success("✅ Prediction: Booking will NOT be Canceled (Confirmed)")
             
     except Exception as e:
-        st.error(f"Error occured: {e}")
+        st.error(f"Error occurred: {e}")
