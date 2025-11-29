@@ -1,7 +1,8 @@
 import os
 import pandas as pd
 import numpy as np
-from src.ML_LAB import logger 
+from src.ML_LAB import logger
+import joblib 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from statsmodels.stats.outliers_influence import variance_inflation_factor
@@ -122,6 +123,24 @@ class DataTransformation:
             logger.info(f"Transformation Complete. Train Shape: {train_final.shape}, Test Shape: {test_final.shape}")
             print(f"Train Saved at: {train_file_path}")
             print(f"Test Saved at: {test_file_path}")
+
+            preprocessor_obj = {
+                "scaler": scaler,
+                "ohe": ohe,
+                "num_cols": num_cols,
+                "cat_cols": cat_cols,
+                "freq_drop_cols": freq_drop_cols,
+                "vif_drop_cols": vif_drop_cols
+            }
+            
+            # Save preprocessor.obj
+            preprocessor_path = os.path.join(self.config.root_dir, "preprocessor.obj")
+            joblib.dump(preprocessor_obj, preprocessor_path)
+            
+            logger.info(f"Preprocessor object saved at {preprocessor_path}")
+            # ------------------------------------
+
+            logger.info(f"Transformation Complete. Train Shape: {train_final.shape}, Test Shape: {test_final.shape}")
 
         except Exception as e:
             logger.error(f"Error in Data Transformation: {str(e)}")
